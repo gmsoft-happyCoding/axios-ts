@@ -26,12 +26,12 @@ function convertRESTAPI(url, opts) {
   return url;
 }
 
-function useRequestInterceptor(interceptor) {
-  return instance.interceptors.request.use(interceptor);
+function useRequestInterceptor(beforeRequestHandler, errorHandler) {
+  return instance.interceptors.request.use(beforeRequestHandler, errorHandler);
 }
 
-function useResponseInterceptor(interceptor) {
-  return instance.interceptors.response.use(interceptor);
+function useResponseInterceptor(successHandler, errorHandler) {
+  return instance.interceptors.response.use(successHandler, errorHandler);
 }
 
 function ejectRequestInterceptor(interceptor) {
