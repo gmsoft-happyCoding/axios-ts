@@ -1,7 +1,15 @@
-var convertUrl = exports.convertUrl = function (url) {
+function isFunction(f){
+  return typeof f === 'function'
+}
+
+var urlPreprocess = exports.urlPreprocess = function(url, urlPreprocessor){
+  return urlPreprocessor && isFunction(urlPreprocessor) ? urlPreprocessor(url) : url;
+}
+
+var convertUrl = exports.convertUrl = function (url, urlPreprocessor) {
   // /restful/:id/:list/{id} -> restful_id_list_id
   // /restful/:id/:list/{id}.json -> restful_id_list_id
-  var _url = url
+  var _url = urlPreprocess(url, urlPreprocessor)
     .replace(/:|{|}/g, '')
     .replace(/-/g, '_')
     .split('/')
@@ -9,12 +17,12 @@ var convertUrl = exports.convertUrl = function (url) {
   return _url.split('.')[0];
 };
 
-exports.convertMethod = function (mock) {
+exports.convertMethod = function (mock, urlPreprocessor) {
   // 防止重名
   // restful_id_list_id => restful_id_list_id_g
   // or
   // restful_id_list_id => restful_id_list_id_p
-  return convertUrl(mock.url) + '_' + mock.method.toLowerCase();
+  return convertUrl(mock.url, urlPreprocessor) + '_' + mock.method.toLowerCase();
 };
 
 exports.joinUrl = function () {
