@@ -12,7 +12,7 @@ Documentation
 ```javascript
 // example
 module.exports = {
-	host: "http://192.168.2.11:7300",
+  host: "http://192.168.2.11:7300",
   output: "./src/api", // 产出到项目下的 src/api 目录，不用手动创建
   template: "angular-moon/axios", // 指定生成模板
   projects: [
