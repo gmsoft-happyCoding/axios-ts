@@ -20,7 +20,7 @@ module.exports = {
       id: "5a5459145ca5151dd8559d0f", // easy-mock project id
       name: "xcjApi",
       urlPreprocessor: url => url.replace('/xcj-gateway', ''),
-      baseUrl: 'process.env.REACT_APP_API_GATEWAY_PROXY' // 如果baseUrl为字符串请使用 "'baseUrl'"
+      baseUrl: 'process.env.REACT_APP_API_GATEWAY' // 如果baseUrl为字符串请使用 "'baseUrl'"
     }
   ]
 };
