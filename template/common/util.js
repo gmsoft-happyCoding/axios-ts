@@ -1,4 +1,5 @@
 import axios from 'axios';
+const defaultsDeep = require('lodash/defaultsDeep');
 
 const instance = axios.create();
 
@@ -42,8 +43,8 @@ function ejectResponseInterceptor(interceptor) {
   instance.interceptors.response.eject(interceptor);
 }
 
-function mergeDefaults(defaults) {
-  return instance.defaults = {...instance.defaults, ...defaults}
+function mergeDefaults(...defaults) {
+  return instance.defaults = defaultsDeep(instance.defaults, ...defaults);
 }
 
 export {
