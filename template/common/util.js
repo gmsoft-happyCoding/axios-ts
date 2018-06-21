@@ -1,7 +1,10 @@
 import axios from 'axios';
 const defaultsDeep = require('lodash/defaultsDeep');
 
-const instance = axios.create();
+const instance = axios.create({
+  withCredentials: true,
+  headers: { 'X-Requested-With': 'XMLHttpRequest' }
+});
 
 function createAPI(baseURL) {
   return function (conf) {
