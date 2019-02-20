@@ -1,14 +1,14 @@
 /* eslint-disable */
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { defaultsDeep } from "lodash";
-import { Opts } from "./Opts.d";
+import { WithPathOpts } from "./Opts.d";
 
 const instance = axios.create({
   withCredentials: true,
   headers: { "X-Requested-With": "XMLHttpRequest" }
 });
 
-type Conf = AxiosRequestConfig & { opts?: Partial<Opts> };
+type Conf = AxiosRequestConfig & { opts?: Partial<WithPathOpts> };
 
 function createAPI(baseURL?: string) {
   return function(conf: Conf) {
