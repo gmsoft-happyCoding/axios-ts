@@ -8,7 +8,7 @@ const instance = axios.create({
   headers: { "X-Requested-With": "XMLHttpRequest" }
 });
 
-type Conf = AxiosRequestConfig & { opts: Opts };
+type Conf = AxiosRequestConfig & { opts?: Partial<Opts> };
 
 function createAPI(baseURL?: string) {
   return function(conf: Conf) {
