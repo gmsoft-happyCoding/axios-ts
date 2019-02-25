@@ -27,7 +27,7 @@ function createAPI(baseURL?: string) {
   };
 }
 
-function convertRESTAPI(url: string, opts: Opts): string {
+function convertRESTAPI(url: string, opts: WithPathOpts): string {
   if (!opts || !opts.path) return url;
 
   const pathKeys = Object.keys(opts.path);
