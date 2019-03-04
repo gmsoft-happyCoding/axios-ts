@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { AxiosRequestConfig } from 'axios';
-import { Opts, WithPathOpts} from '../Opts.d';
+import { Opts, WithPathOpts } from '../Opts.d';
 import instance from './instance';
 import { convertRESTAPI } from '{{$$.relative("util")}}';
 
