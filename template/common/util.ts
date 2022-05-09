@@ -5,21 +5,22 @@ import { WithPathOpts } from "./Opts.d";
 
 const instance = axios.create({
   withCredentials: true,
-  headers: { "X-Requested-With": "XMLHttpRequest" }
+  headers: { "X-Requested-With": "XMLHttpRequest" },
 });
 
-type Conf = AxiosRequestConfig & { opts?: Partial<WithPathOpts> };
+type Conf = Pick<AxiosRequestConfig, "url" | "method"> & {
+  opts?: Partial<WithPathOpts>;
+};
 
 function createAPI(baseURL?: string) {
-  return function(conf: Conf) {
-    conf = conf || {};
+  return function (conf: Conf = {}) {
     return instance(
       Object.assign(
         {},
         {
           url: conf.url,
           baseURL: baseURL,
-          method: conf.method
+          method: conf.method,
         },
         conf.opts
       )
@@ -32,7 +33,7 @@ function convertRESTAPI(url: string, opts: WithPathOpts): string {
 
   const pathKeys = Object.keys(opts.path);
 
-  pathKeys.forEach(key => {
+  pathKeys.forEach((key) => {
     const r = new RegExp("(:" + key + "|{" + key + "})", "g");
     url = url.replace(r, opts.path[key]);
   });
@@ -81,5 +82,5 @@ export {
   useResponseInterceptor,
   ejectRequestInterceptor,
   ejectResponseInterceptor,
-  mergeDefaults
+  mergeDefaults,
 };
