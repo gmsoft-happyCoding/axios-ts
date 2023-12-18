@@ -2,18 +2,24 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { defaultsDeep } from "lodash";
 import { WithPathOpts } from "./Opts.d";
+import qs from "qs";
+import setInterceptor from "./setInterceptor";
 
 const instance = axios.create({
   withCredentials: true,
   headers: { "X-Requested-With": "XMLHttpRequest" },
+  paramsSerializer: function (params) {
+    return qs.stringify(params, { arrayFormat: "repeat", allowDots: true });
+  },
 });
 
-type Conf = Pick<AxiosRequestConfig, "url" | "method"> & {
-  opts?: Partial<WithPathOpts>;
-};
+setInterceptor(instance);
+
+type Conf = AxiosRequestConfig & { opts?: Partial<WithPathOpts> };
 
 function createAPI(baseURL?: string) {
-  return function (conf: Conf = {}) {
+  return function (conf: Conf) {
+    conf = conf || {};
     return instance(
       Object.assign(
         {},
